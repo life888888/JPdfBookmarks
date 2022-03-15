@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>it.flavianopetrocchi.jpdfbookmarks</groupId>
+    <artifactId>jpdfbookmarks</artifactId>
+    <version>2.5.2</version>
+  </parent>
+  <artifactId>jpdfbookmarks_languages</artifactId>
+  <packaging>jar</packaging>
+  <name>jpdfbookmarks_languages</name>
+  <!-- remove CJK locales to locales folder -->
+  <!--
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>make Props Dir</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mkdir</executable>
+                            <arguments>
+                                <argument>-p</argument>
+                                <argument>target/classes/it/flavianopetrocchi/jpdfbookmarks/locales</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>Native2ascii CJK Props</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>native2ascii</executable>
+                            <arguments>
+                                <argument>src/main/resources_CJK/it/flavianopetrocchi/jpdfbookmarks/locales/localizedText_zh_TW.properties</argument>
+                                <argument>target/classes/it/flavianopetrocchi/jpdfbookmarks/locales/localizedText_zh_TW.properties</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    -->
+</project>

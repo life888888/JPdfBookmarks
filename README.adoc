@@ -1,0 +1,90 @@
+= JPdfBookmarks v2.5.2 Maven
+life888888
+:doctype: article
+:encoding: utf-8
+:lang: zh
+:toc: left
+:numbered:
+:experimental:
+
+JPdfBookmarks v2.5.2-maven is mirgrate from jpdfbookmarks-src-2.5.2.tar.gz (https://sourceforge.net/projects/jpdfbookmarks/files/JPdfBookmarks-2.5.2/jpdfbookmarks-src-2.5.2.tar.gz/download)
+
+
+== Build System requirement
+
+* JDK 8.x (Only JDK 8)
+* Maven 3.6.x+
+
+== How to build and package ?
+
+=== Download Source
+
+* Download `Releases/v2.5.2-maven` (jpdfbookmarks-src-2.5.2-maven)
+
+* Unzip JPdfBookmarks-2.5.2-maven.tar.gz or JPdfBookmarks-2.5.2-maven.zip
+
+=== Do it once before the first execution 
+
+.Install jpedal_lgpl.jar to the local maven repository
+[source,bash]
+----
+cd JPdfBookmarks-2.5.2-maven/jpdfbookmarks_lib
+./install_lib.sh
+
+# Windows
+install_lib.bat
+----
+
+
+=== Build and Package
+
+[source,bash]
+----
+cd JPdfBookmarks-2.5.2-maven
+mvn clean package
+
+cd jpdfbookmarks_core/target
+----
+
+your can find:
+
+* Binary Release
+** jpdfbookmarks-2.5.2.tar.gz
+** jpdfbookmarks-2.5.2.zip
+
+* Source Release
+** jpdfbookmarks-src-2.5.2.tar.gz
+** jpdfbookmarks-src-2.5.2.zip
+
+== HOW TO INSTALL AND UNINSTALL
+
+Same as README Section `HOW TO INSTALL AND UNINSTALL`
+
+== HOW TO EXECUTE
+
+Same as README Section `HOW TO EXECUTE`
+
+== Why Change to Maven Build Tools?
+
+* Package
+** No more need for `Packaging` directory 
+** No more need for `Packaging/jpdfbookmarks_cli.exe` in source
+** No more need for `Packaging/jpdfbookmarks.exe` in source
+** No need to install launch4j anymore 
+** No need to install launch4j 7zip
+** Windows and Linux developers use the same configuration files to build and package projects.
+* It is no longer necessary to include the following jar files in the `jpdfbookmarks_lib/` directory (These files can be downloaded from the maven central repository on the web )
+** bcmail-jdk16-145.jar 
+** bcprov-jdk16-145.jar
+** bctsp-jdk16-145.jar
+** commons-cli-1.2.jar
+** swing-layout-1.0.3.jar
+* Developers can use different IDE tools (NetBeans , Eclipse , IntelliJ IDEA) to open or import this Maven project.
+
+== Guaranteed
+
+The retained code and properties files are guaranteed to be consistent with jpdfbookmarks-src-2.5.2.tar.gz and have not been modified.
+
+== Changes
+
+The change content of the entire project converted from 2.5.2 to 2.5.2-maven version can refer to https://github.com/life888888/JPdfBookmarks-Maven-Patch

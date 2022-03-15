@@ -1,0 +1,75 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+	<id>bin</id>
+	<!-- 最終打包成一個用於釋出的zip(tar.gz)檔案 -->
+	<formats>
+		<format>tar.gz</format>
+		<format>zip</format>
+	</formats>
+
+	<fileSets>
+		<!-- 把專案相關的說明檔案，打包進zip檔案的根目錄 -->
+		<fileSet>
+			<directory>${project.parent.basedir}</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>COPYING</include>
+				<include>README</include>		
+			</includes>
+		</fileSet>
+
+		<!-- 把專案的指令碼檔案目錄(src/main/scripts)中的啟動指令碼檔案，打包進zip檔案的跟目錄 -->
+		<fileSet>
+			<directory>${project.build.scriptSourceDirectory}</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>jpdfbookmarks</include>
+				<include>jpdfbookmarks_cli</include>
+				<include>link_this_in_linux_path.sh</include>		
+				<include>link_this_in_linux_path_cli.sh</include>	
+			</includes>
+			<fileMode>0744</fileMode>
+		</fileSet>
+		<!-- 把 launch4j 產出的 exe 檔案，打包進zip檔案的根目錄 -->
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>jpdfbookmarks.exe</include>
+				<include>jpdfbookmarks_cli.exe</include>
+			</includes>
+		</fileSet>		
+   
+		<!-- 把專案自己編譯出來的jar檔案，打包進zip檔案的根目錄 -->
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>jpdfbookmarks.jar</include>
+			</includes>
+		</fileSet>
+
+
+
+		<!-- Splash Screen，打包進zip檔案的根目錄 -->
+		<fileSet>
+			<directory>${project.basedir}/src/main/images</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>jpdfbookmarks.png</include>
+			</includes>
+		</fileSet>
+		
+	</fileSets>
+	<!-- Adds dependencies to zip package under lib directory -->
+	<dependencySets>
+		<!-- 第三方jar不要解壓，打包進zip檔案的lib目錄 -->
+		<!-- 不使用專案的artifact(jpdfbookmarks.jar)-->
+		<dependencySet>            
+			<outputDirectory>lib</outputDirectory>
+			<unpack>false</unpack>
+			<useProjectArtifact>false</useProjectArtifact>
+		</dependencySet>
+	</dependencySets>
+</assembly>
