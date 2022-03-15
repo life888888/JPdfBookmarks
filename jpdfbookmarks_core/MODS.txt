@@ -1,0 +1,8 @@
+================================================================================
+    BUGS TO SOLVE AND FEATURES TO ADD
+================================================================================
+2010-08-20  Unknown bookmarks cannot have chained bookmarks because don't have 
+            an action to witch attach the other actions.
+2010-08-20  Hide Bookmarks for fields only support named fields and not
+            dictionary fields. Only a single field per action is supoprted for
+            hide bookmarks while pdf standard supports arrays of fields.
