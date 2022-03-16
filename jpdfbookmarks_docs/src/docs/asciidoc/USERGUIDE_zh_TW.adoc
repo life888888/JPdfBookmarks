@@ -1,0 +1,630 @@
+= JPdfBookmarks 使用者指南
+life888888
+:revnumber: {project-version}
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+:doctype: article
+:encoding: utf-8
+:lang: zh
+:toc: left
+:numbered:
+:experimental:
+
+JPdfBookmarks 2.5.4 最大修改是讓 JPdfBookmarks GUI 的 Bookmarks 可以顯示 CJK 字元(Chinese , Japanese , Korean characters )  不再顯示為 `□`字元
+
+== 如何安裝
+
+=== 系統需求
+
+JRE / JDK 8.0+ (包含 8.0 或是 11, ... , 17)
+
+=== 下載安裝檔
+
+JPdfBookmarks 2.5.4 是我從 JPdfBookmarks 2.5.2 Maven 版本修改過來,
+已經與原作者的版本不一樣 , 所以你無法從原作者的 source-forge  ( http://sourceforge.net/projects/jpdfbookmarks/ ) 下載 2.5.4
+
+你只能從 https://github.com/life888888/JPdfBookmarks/releases/ 找到 2.5.4 的 jpdfbookmarks-2.5.4.tar.gz (Linux) 或 jpdfbookmarks-2.5.4.zip (Windows) 然後解壓縮 到你的磁碟。
+
+=== Linux 使用者
+
+==== 安裝
+
+假設你解壓縮的安裝目錄是 `/home/demo/TOOLS/jpdfbookmarks-2.5.4`
+
+
+[source,bash]
+.設定程式檔案有執行權限
+----
+$ cd /home/demo/TOOLS/jpdfbookmarks-2.5.4
+$ chmod +x jpdfbookmarks jpdfbookmarks_cli
+$ chmod +x link_this_in_linux_path.sh link_this_in_linux_path_cli.sh
+----
+
+
+[source,bash]
+.將程式加入到全機設定(如果你有 root 或 sudo 權限)
+----
+$ cd /usr/local/bin
+$ sudo ln -s /home/demo/TOOLS/jpdfbookmarks-2.5.4/link_this_in_linux_path.sh jpdfbookmarks
+$ sudo ln -s /home/demo/TOOLS/jpdfbookmarks-2.5.4/link_this_in_linux_path_cli.sh jpdfbookmarks_cli
+----
+
+
+[source,bash]
+.或是把程式目錄加入到 PATH 環境變數中
+----
+# 加入這個到 ~/.bashrc
+export PATH=/home/demo/TOOLS/jpdfbookmarks-2.5.4:$PATH
+----
+
+
+==== 移除
+
+
+[source,bash]
+.將程式從全機設定移除(如果你有 root 或 sudo 權限)
+----
+$ sudo rm /usr/local/bin/jpdfbookmarks
+$ sudo rm /usr/local/bin/jpdfbookmarks_cli
+----
+
+
+[source,bash]
+.或是從你的環境變數移除
+----
+# 修改 ~/.bashrc 加上註記掉下面這行
+# export PATH=/home/demo/TOOLS/jpdfbookmarks-2.5.4:$PATH
+----
+
+=== Windows 使用者
+
+==== 安裝
+
+假設你解壓縮的安裝目錄是 `C:\TOOLS\jpdfbookmarks-2.5.4`
+
+你可以在檔案總管開啟 **安裝目錄** 直接點擊 `jpdfbookmarks.exe` 或是 `jpdfbookmarks_cli.exe` 叫出 jpdfbookmarks GUI。
+
+或者在你的 PATH 環境變數中加入 jpdfbookmarks 安裝目錄(`C:\TOOLS\jpdfbookmarks-2.5.4`)
+以便於你在 命令列模式中使用。
+
+[NOTE]
+====
+jpdfbookmarks.exe 與 jpdfbookmarks_cli.exe 都能帶出 GUI 模式
+
+* jpdfbookmarks_cli.exe 會有一個 Terminal 在視窗後面顯示 jpdfbookmarks 透過 terminal 顯示的訊息
+* jpdfbookmarks.exe 不會有一個 Terminal 在視窗後面顯示，所以如果有一些異常發生，使用 jpdfbookmarks.exe 會看不到這些異常的訊息。
+====
+
+==== Windows 上的 JRE 或 JDK
+點擊　`jpdfbookmarks.exe` 或是 `jpdfbookmarks_cli.exe`，如果跳出 對話窗顯示訊息 **This application requires a Java Runtime Environment 1.8.0** 表示你沒有安裝 JRE 8 或 JDK 8。
+
+
+[IMPORTANT]
+.下載 JRE/JDK
+====
+鑒於 Oracle 的 JRE/JDK 授權爭議問題，我將 jpdfbookmarks.exe / jpdfbookmarks_cli.exe 提示安裝 JRE/JDK 的下載網址改為 https://adoptium.net/releases.html
+
+建議你可以選擇:
+
+* Temurin 17(LTS)
+* Windows
+* x64
+
+點擊: **JRE .msi** 來下載。
+
+image:adoptium-net-jdk.png[]
+====
+
+==== 安裝 JRE
+
+點擊 `OpenJDK17U-jre_x64_windows_hotspot_17.0.2_8.msi`
+出現視窗後 , 點選 **[Next]**
+
+image:jre_install_001.png[]
+
+Custome Setup
+點擊 `Set JAVA_HOME variable`
+下拉選擇 `Entire feature will be installed on local hard drive`
+
+image:jre_install_002.png[]
+
+點擊 JavaSoft(Oracle) registry keys
+下拉選擇 Entire feature will be installed on local hard drive
+
+image:jre_install_003.png[]
+
+確認都已經勾選後 , 就可以點擊 **[Next]**
+
+Q: 為何你已經安裝了非Oracle的JRE/JDK,執行 jpdfbookmarks.exe / jpdfbookmarks_cli.exe 還是會跳出 對話窗顯示訊息 **This application requires a Java Runtime Environment 1.8.0** 表示你沒有安裝 JRE 8 或 JDK 8。難道只能裝 Oracle的 JRE 嗎? 還是只能安裝 8的版本?
+
+[TIP]
+====
+jpdfbookmarks.exe / jpdfbookmarks_cli.exe 是用 Launch4j 封裝成 EXE , 它在檢查是否有安裝 JRE 或 JDK , 只檢查 Windows 的 Registry 是否有 Oracle 對應的 Registry。
+
+所以只要你下載安裝的 JRE / JDK 能夠設定 Windows Registry 有相關的 Oracle Registry Keys 就可以了!!!
+
+image:jre_install_004.png[]
+
+不一定需要安裝 Oracle 的 JRE 或 JDK。
+
+安裝第三方,非Oracle 的 JRE 或 JDK 可以避免你在公司或企業內部安裝 Oracle JRE / JDK 可能會引起的授權及付費問題。
+====
+
+點選 [Install] 就可進行安裝
+
+image:jre_install_005.png[]
+
+詢問是否同意安裝程式變更裝置，點選 [Yes]
+
+image:jre_install_006.png[]
+
+最後點選 [finish]
+
+image:jre_install_007.png[]
+
+
+注意: 安裝 JRE 或 JDK 的版本,建議使用 17版
+
+
+[source,bash]
+.使用 JRE 11 執行 jpdfbookmarks_cli 會拋出警告訊息
+----
+C:\TOOLS\jpdfbookmarks-2.5.4>jpdfbookmarks_cli README-zh_CN.pdf -e UTF-8 -d -o ttt.txt
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.lowagie.text.pdf.MappedRandomAccessFile$1 (file:/C:/TOOLS/jpdfbookmarks-2.5.4/lib/iText-2.1.7-patched-2.5.4.jar) to method java.nio.DirectByteBuffer.cleaner()
+WARNING: Please consider reporting this to the maintainers of com.lowagie.text.pdf.MappedRandomAccessFile$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+
+C:\TOOLS\jpdfbookmarks-2.5.4>java -version
+openjdk version "11.0.14.1" 2022-02-08
+OpenJDK Runtime Environment Temurin-11.0.14.1+1 (build 11.0.14.1+1)
+OpenJDK 64-Bit Server VM Temurin-11.0.14.1+1 (build 11.0.14.1+1, mixed mode)
+----
+
+[source,bash]
+.使用 JRE 17 執行 jpdfbookmarks_cli 不會拋出警告訊息
+----
+C:\TOOLS\jpdfbookmarks-2.5.4>jpdfbookmarks_cli README-zh_CN.pdf -e UTF-8 -d -o ttt.txt
+
+C:\TOOLS\jpdfbookmarks-2.5.4>java -version
+openjdk version "17.0.2" 2022-01-18
+OpenJDK Runtime Environment Temurin-17.0.2+8 (build 17.0.2+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.2+8 (build 17.0.2+8, mixed mode, sharing)
+----
+
+== 如何執行使用 JPdfBookmarks?
+
+=== GUI模式
+
+Linux 執行 jpdfbookmarks 或是 jpdfbookmarks_cli 不要加上任何參數 或是 加上唯一的參數 PDF檔案名稱
+都可以帶出  JPdfBookmarks GUI。
+
+[source,bash]
+----
+$ jpdfbookmarks
+$ jpdfbookmarks README.pdf
+
+$ jpdfbookmarks_cli
+$ jpdfbookmarks_cli README.pdf
+----
+
+主要的差異是：
+
+* jpdfbookmarks 會顯示 splash 圖片
+* jpdfbookmarks_cli 不會顯示 splash 圖片。
+
+Windows 在檔案總管直接點擊 jpdfbookmarks.exe 或是 jpdfbookmarks_cli.exe 都可以帶出 JPdfBookmarks GUI。
+
+主要的差異是：
+
+* jpdfbookmarks.exe 執行時**不會有命令列視窗**在後面。
+* jpdfbookmarks_cli.exe 執行時**會有命令列視窗**在後面。
+image:jpdfbookmarks_cli_exe_gui.png[]
+
+[IMPORTANT]
+====
+如果是 Windows 使用者, 建議一定要修改 encoding 設定為 UTF-8, 不然在轉換其他非自己國家語言的PDF時,轉出來的 bookmarks txt 可能會有亂碼或是變成`?`的情況。
+
+
+.Menu Tools -> Options
+image:options_encoding_001.png[]
+
+.Tab General -> Select a charset encoding for dump and apply
+image:options_encoding_002.png[]
+
+.選擇 UTF-8 後 , 點選 [OK] 即可
+image:options_encoding_003.png[]
+
+.測試 Dump 簡體中文PDF的 Bookmarks Menu Tools -> Dump
+image:tools_dump_001.png[]
+
+.完成後 , jpdfbookmarks 自動開啟產出的 txt , 確認 bookmarks 沒有變問號
+image:tools_dump_002.png[]
+====
+
+=== 命令列模式
+
+用法: +
+**jpdfbookmarks <input.pdf> [--dump | --apply <bookmarks.txt> |
+                     --show-on-open <YES | NO | CHECK> | --help | --version]
+                     [--out <output.pdf>]**
+
+
+
+Here follows a short help on the jpdfbookmarks parameters.
+
+.jpdfbookmarks parameters
+[options="header",cols="1,4"]
+|=======================
+|parameter name |description
+| -a,--apply <bookmarks.txt>|Apply bookmarks from the file bookmarks.txt to a pdf file passed as argument and save it to a new pdf file specified with --out output.pdf. The encoding for reading the bookmarks.txt file can be changed using the --encoding option.
+| -b,--bookmark <arg>        | Use this in GUI mode to open the pdf file on a specific page, use the same format of the bookmarks text file omitting the title and styles attributes. For example the command 'jpdfbookmarks --bookmark "1,FiWidth,500" file.pdf' will open file.pdf at the first page with a zoom to fit the width of the viewer and scrolled to half page.
+| -d,--dump                  | Extract bookmarks from a PDF file passed as argument and print them to standard output or to a file indicated with the option --out. The encoding for the text file can be changed with the option --encoding.
+| -e,--encoding <UTF-8>      | With this option you can read or write bookmarks text file with the preferred encoding.
+| -f,--force                 | With this option set the program doesn't warn if you try to overwrite an existing file, use with caution and backup your files.
+| -h,--help                  | Print this message.
+| -i,--indentation <arg>     | String to use as indentation string (default value is the tab character) , must be different from the title and page number separator (default value '/') and from the attributes separator (default value ',').
+| -o,--out <output.pdf> ,--out <bookmarks.txt>     | Used with the --apply option indicates the output PDF file (--out file.pdf or -o file.pdf). Used with the --dump option can indicate the output bookmarks file (--out bookmarks.txt or -o bookmarks.txt), can be used together with the --encoding option to override the system default encoding of the text file.
+| -p,--page-sep <arg>        | String to be use between title and page number (default value is '/'), must be different from attributes separator (default value ',') and from indentation string (default value is the tab character).
+| -t,--attributes-sep <arg>  | String to be use between the bookmark attributes (default value is ','), must be different from the title and page number separator (default value '/') and from indentation string (default value is the tab character).
+| -v,--version               | Version number.
+| -w,--show-on-open <arg>    | If you want to show the bookmarks as soon as the pdf file is open pass YES to this option, if otherwise you want to hide the bookmarks pass NO to this option. To check what is the actual setting on the file pass CHECK to this option and the program will write to standard output YES or NO.
+|=======================
+
+
+.Example - Dump bookmarks from a pdf file
+[source,bash]
+----
+$ jpdfbookmarks --dump --out bookmarks.txt UserGuide.pdf
+$ jpdfbookmarks -d -o bookmarks.txt UserGuide.pdf
+$ jpdfbookmarks_cli --dump --out bookmarks.txt UserGuide.pdf
+$ jpdfbookmarks_cli -d -o bookmarks.txt UserGuide.pdf
+# Add encoding -e UTF-8
+$ jpdfbookmarks_cli -e UTF-8 -d -o bookmarks.txt UserGuide.pdf
+----
+
+[IMPORTANT]
+====
+如果是 Windows 使用者, 建議一定要加上 encoding 設定為 UTF-8, 不然在轉換其他非自己國家語言的PDF時,轉出來的 bookmarks txt 可能會有亂碼或是變成`?`的情況。
+
+　jpdfbookmarks_cli -e UTF-8 -d -o bookmarks.txt UserGuide.pdf
+====
+
+.Example - Apply bookmarks to a pdf file
+[source,bash]
+----
+$ jpdfbookmarks --apply bookmarks.txt --out UserGuide_NEW.pdf UserGuide.pdf
+$ jpdfbookmarks_cli --apply bookmarks.txt --out UserGuide_NEW.pdf UserGuide.pdf
+----
+
+
+.Example - run GUI mode
+[source,bash]
+----
+$ jpdfbookmarks
+----
+
+
+.Example - run GUI mode and open a pdf file
+[source,bash]
+----
+$ jpdfbookmarks UserGuide.pdf
+----
+
+== Bookmarks 格式
+
+Bookmarks 格式的文字檔案格式:
+
+**Title of bookmark**/**target page**__[,FitType,TopOffset,LeftOffset]__ 
+
+
+* 一行代表一個 bookmark, 或者稱為 目錄章節
+* 如果是 目錄章之下的目錄小節,開頭要使用 TAB 字元起始,例如：第一章第一節(1.1)的起始字元是一個 TAB　字元。但是 1.1.1 的起始字元是 兩個 TAB 字元。
+* bookmark 之後跟著一個 `/`。
+* 之後是對應 bookmark 的頁數。
+* 以下的參數(延伸的 bookmark 的文字樣式設定)是選用的,每個參數使用 `,` 隔開。
+** 顏色 (Ex: Red or Green or ...)
+** 粗體 (Ex: bold or noBold)
+** 斜體 (Ex: italic or noItalic)
+** bookmark 的開關狀態 (Ex: open or closed)
+** FitType - PDF 頁面顯示設定 (Ex: FitWidth or FitHeight or FitPage or TopLeft)
+** TopOffset (Ex: 120)
+** LeftOffset (Ex: 42)
+* 特殊樣式: 你可以加入一個外部 URL
+** EX: `Goto Youtube/-1,Black,notBold,notItalic,open,Uri,https://www.youtube.com/`
+** 頁碼位置,設定為 `-1`,
+** FitType 設定為 `Uri`, 然後加上要開啟的 URL
+
+
+
+.Basic Example - Only `Title of bookmark` and `target page`
+[source,bash]
+----
+Chapter 1/23
+[TAB]Para 1.1/25
+[TAB][TAB]Para 1.1.1/26
+Chapter 2/30
+[TAB]Para 2.1/32
+----
+
+ `[TAB]` 是不可視字元所以實際上應該是以下這樣
+
+.Basic Example - Only `Title of bookmark` and `target page`
+[source,bash]
+----
+Chapter 1/23
+	Para 1.1/25
+		Para 1.1.1/26
+Chapter 2/30
+	Para 2.1/32
+----
+
+
+**Title of bookmark**/**target page**__[,FitType,TopOffset,LeftOffset]__ 
+
+
+.Extended format Example - Add `FitType` and `TopOffset` and `LeftOffset`
+[source,bash]
+----
+Chapter 1/23
+	Para 1.1/25,FitWidth,96
+		Para 1.1.1/26,FitHeight,43
+Chapter 2/30,TopLeft,120,42
+	Para 2.1/32,FitPage
+----
+
+除此之外還能加上擴充格式的文字樣式設, 例如 顏色 , 粗體 , 斜體 , bookmark 的開關狀態
+
+.Extended format Example -  Add `color` , `bold` , `italic` , `open` state
+[source,bash]
+----
+Para 1.1/25,Red,bold,italic,open,FitWidth,96
+Para 1.1/25,Green,noBold,noItalic,closed,FitWidth,96
+----
+
+
+.Example - bookmark.txt - UserGuide - add chinese bookmark to UserGuide pdf
+
+[source,bash]
+----
+JPdfBookmarks 使用者手冊/1
+	如何安裝和移除/1
+		On Linux/1
+		On Windows/2
+		Universal/2
+	如何執行/2
+		範例 - 從 pdf 倒出 bookmarks/3
+		範例 - 套用 bookmarks 到 pdf/3
+		範例 - 執行 GUI 模式/3
+	Bookmarks 格式/3
+Goto Youtube/-1,Black,notBold,notItalic,open,Uri,https://www.youtube.com/	
+----
+
+
+=== Example - Apply bookmarks to a pdf file
+
+[source,bash]
+----
+$ jpdfbookmarks --apply bookmarks.txt --out UserGuide_NEW.pdf UserGuide.pdf
+$ jpdfbookmarks_cli --apply bookmarks.txt --out UserGuide_NEW.pdf UserGuide.pdf
+----
+
+
+== （選用）變更 JPdfBookmarks 的 GUI 模式顯示的字型與大小
+
+(Since ver. 2.5.4)
+
+使用 文書編輯工具(Linux: gedit, nano ; Windows: NOTEPAD++) 開啟以下檔案
+
+* /home/demo/TOOLS/jpdfbookmarks-2.5.4/conf/jpdfbookmarks.cjk.font.properties
+* C:\TOOLS\jpdfbookmarks-2.5.4\conf\jpdfbookmarks.cjk.font.properties
+
+你可以修改 cjk.fontSize = **20** , 然後存檔, 
+重新執行 jpdfbookmarks , jpdfbookmarks GUI 模式, 你應該可以看到 JPdfBookmarks 的 GUI 的文字顯示變大了!
+
+不要調整的太大
+
+你不需要修改 cjk.fontName 設定
+
+.jpdfbookmarks.cjk.font.properties 的預設值
+[source,bash]
+----
+cjk.fontName = "Noto Serif CJK TC Black"
+cjk.fontSize = 16
+----
+
+如果你想要變更為你喜歡的字型 , 你可以使用以下命令, 列出你的機器上有安裝字型
+
+請把 **:lang=zh** 取代為 你的語言 :lang=**XX**
+
+.Linux user command
+[source,bash]
+----
+$ fc-list :lang=zh
+# or
+$ fc-list
+----
+
+然後修改 jpdfbookmarks.cjk.font.properties 的 **cjk.fontName = "你喜歡的字型名稱"**
+存檔,重新執行 jpdfbookmarks , jpdfbookmarks GUI 模式, 你應該可以看到 JPdfBookmarks 的 GUI 的文字顯示變成你指定的字型!
+
+== （選用）自製 JPdfBookmarks的語言翻譯檔(locales)
+
+(Since ver. 2.5.4)
+
+[source,bash]
+----
+JPdfBookmarks/locales/
++> it/flavianopetrocchi/jpdfbookmarks/locales/
++-> localizedText.properties.template
+----
+
+.找出你自己的語言跟地區國別設定
+[source,bash]
+----
+$ echo LANG$
+zh_TW.UTF-8
+----
+
+複製 **localizedText.properties.template** 並且更名為 localizedText**_zh_TW**.properties**.org**
+
+.修改前 localizedText_zh_TW.properties.org
+[source,bash]
+----
+APP_DESCR=\nUtility program to create or edit bookmarks on existing PDF files. To launch the graphic interface invoke without parameters or pass a pdf file you want as parameter. On Windows the command line program must be called with jpdfbookmarks_cli.exe while the graphic interface must be called with jpdfbookmarks.exe.\n
+DUMP_DESCR=Extract bookmarks from a PDF file passed as argument and print them to standard output or to a file indicated with the option --out. The encoding for the text file can be changed with the option --encoding.
+...
+...
+----
+
+把 `=` 後面的內容換成你自己的語言內容,然後存檔
+
+以下是舉例,
+
+.修改後 localizedText_zh_TW.properties.org
+[source,bash]
+----
+APP_DESCR=\n這是測試修改範例1\n
+DUMP_DESCR=這是修改範例2
+...
+...
+----
+
+(選用,根據你的語言及地區而定)
+但是我們使用的預設的編碼 , 必須經過處理轉換 ascii 為 unicode 編碼。
+如果你有安裝 JDK , 你可以使用 `native2ascii` 指令來轉換。
+如果你沒有安裝 JDK，你也可以 Google搜尋 ‵native2ascii online‵ 找到一些可以幫你線上轉換的Web。
+
+
+[source,bash]
+----
+native2ascii localizedText_zh_TW.properties.org localizedText_zh_TW.properties.org
+----
+
+.轉換後的 localizedText_zh_TW.properties
+[source,bash]
+----
+APP_DESCR=\n\u9019\u662f\u6e2c\u8a66\u4fee\u6539\u7bc4\u4f8b1\n
+DUMP_DESCR=\u9019\u662f\u4fee\u6539\u7bc4\u4f8b2
+...
+...
+----
+
+[NOTE]
+====
+記住
+
+* 檔案位置
+** JPdfBookmarks/locales/it/flavianopetrocchi/jpdfbookmarks/locales/
+* 檔案名稱
+** 轉換前的 locales 檔名是 localizedText**_zh_TW**.properties**.org**
+** 轉換後的 locales 檔名是 localizedText**_zh_TW**.properties
+====
+
+然後重新執行你的 JPdfBookmarks 在 GUI 模式, 你就能看到你修改過的 Menu 或是相關訊息已經變成你修改的語言對應內容。
+
+如果不生效 , 請再次檢查你的 locales 檔案的 檔案位置, 檔案名稱 ,以及對應你系統的語言跟地區國別的設定名稱。
+
+
+== （選用）調整 JPdfBookmarks 的 JVM 參數 以及 log 檔案的名稱及位置
+
+=== （選用）Windows 使用者
+
+(Since ver. 2.5.4)
+
+我將 JPdfBookmarks 的 JVM 參數設定抽出在 `jpdfbookmarks.l4j.ini`, `jpdfbookmarks_cli.l4j.ini` 而不是封裝在 `jpdfbookmarks.exe`, `jpdfbookmarks_cli.exe`。
+
+* 使用者有機會調整一些 JVM 參數(EX: `-Xms64m -Xmx512m`)。來處理一些超大 PDF的記憶體設定。
+* 使用者有機會調整log 檔案的名稱及位置(EX: `-Djava.util.logging.config.file=%EXEDIR%\\conf\\jpdfbookmarks.logging.properties`)
+
+[source,bash]
+.jpdfbookmarks.l4j.ini
+----
+# Launch4j runtime config
+# initial memory heap size
+-Xms64m
+# max memory memory heap size
+-Xmx512m
+# Fix Bug JPEG 2000
+# Enable jpedal jai
+-Dorg.jpedal.jai=true
+# Add java.util.logging.config.file
+-Djava.util.logging.config.file=%EXEDIR%\\conf\\jpdfbookmarks.logging.properties
+----
+
+[source,bash]
+.jpdfbookmarks_cli.l4j.ini
+----
+# Launch4j runtime config
+# initial memory heap size
+-Xms64m
+# max memory memory heap size
+-Xmx512m
+# Fix Bug JPEG 2000
+# Enable jpedal jai
+-Dorg.jpedal.jai=true
+# Add java.util.logging.config.file
+-Djava.util.logging.config.file=%EXEDIR%\\conf\\jpdfbookmarks.logging.properties
+# Disable java splash
+-splash:
+----
+
+=== （選用）Linux 使用者
+
+* 使用者有機會調整一些 JVM 參數(EX: `-Xms64m -Xmx512m`)。來處理一些超大 PDF的記憶體設定。
+* 使用者有機會調整log 檔案的名稱及位置(EX: `-Djava.util.logging.config.file=%EXEDIR%\\conf\\jpdfbookmarks.logging.properties`)
+
+修改 `jpdfbookmarks`, `jpdfbookmarks_cli`, `link_this_in_linux_path.sh`, `link_this_in_linux_path_cli.sh` 的內容。
+
+[source,bash]
+.jpdfbookmarks
+----
+...
+JAR_NAME=jpdfbookmarks.jar
+
+SCRIPT_DIR=$(cd $(dirname "$0"); pwd)
+
+# ADD logging config file
+JVM_OPTIONS="-Xms64m -Xmx512m -Dorg.jpedal.jai=true -Djava.util.logging.config.file=$SCRIPT_DIR/conf/jpdfbookmarks.logging.properties"
+...
+----
+
+[source,bash]
+.jpdfbookmarks_cli
+----
+JAR_NAME=jpdfbookmarks.jar
+
+SCRIPT_DIR=$(cd $(dirname "$0"); pwd)
+
+# ADD logging config file
+JVM_OPTIONS="-Xms64m -Xmx512m -splash: -Dorg.jpedal.jai=true -Djava.util.logging.config.file=$SCRIPT_DIR/conf/jpdfbookmarks.logging.properties"
+----
+
+[source,bash]
+.link_this_in_linux_path.sh
+----
+...
+JAR_NAME=jpdfbookmarks.jar
+
+PATH_TO_TARGET=`readlink -f $0`
+DIR_OF_TARGET=`dirname $PATH_TO_TARGET`
+
+# ADD logging config file
+JVM_OPTIONS="-Xms64m -Xmx512m -Dorg.jpedal.jai=true -Djava.util.logging.config.file=$DIR_OF_TARGET/conf/jpdfbookmarks.logging.properties"
+...
+----
+
+[source,bash]
+.link_this_in_linux_path_cli.sh
+----
+...
+JAR_NAME=jpdfbookmarks.jar
+
+PATH_TO_TARGET=`readlink -f $0`
+DIR_OF_TARGET=`dirname $PATH_TO_TARGET`
+
+# ADD logging config file
+JVM_OPTIONS="-Xms64m -Xmx512m -splash: -Dorg.jpedal.jai=true -Djava.util.logging.config.file=$DIR_OF_TARGET/conf/jpdfbookmarks.logging.properties"
+...
+----

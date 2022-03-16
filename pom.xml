@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.flavianopetrocchi.jpdfbookmarks</groupId>
   <artifactId>jpdfbookmarks</artifactId>
-  <version>2.5.2</version>
+  <version>2.5.4</version>
   <packaging>pom</packaging>
   <name>jpdfbookmarks</name>
   <url>http://sourceforge.net/projects/jpdfbookmarks/</url>
@@ -45,7 +45,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
+          <version>2.5.4</version>
         </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
@@ -157,6 +157,13 @@
         <artifactId>jpedal</artifactId>
         <version>4.22b16</version>
       </dependency>
+      <!-- FIX org.apache.pdfbox.contentstream.PDFStreamEngine operatorException -->
+      <!-- FIX Cannot read JPEG2000 image: Java Advanced Imaging (JAI) Image I/O Tools are not installed -->
+      <dependency>
+        <groupId>com.github.jai-imageio</groupId>
+        <artifactId>jai-imageio-jpeg2000</artifactId>
+        <version>1.4.0</version>
+      </dependency>
       <dependency>
         <groupId>it.flavianopetrocchi.jpdfbookmarks</groupId>
         <artifactId>Utilities</artifactId>
@@ -264,6 +271,7 @@
     <module>Bookmark</module>
     <module>iText-2.1.7-patched</module>
     <module>iTextBookmarksConverter</module>
+    <module>jpdfbookmarks_docs</module>
     <module>jpdfbookmarks_core</module>
   </modules>
 </project>

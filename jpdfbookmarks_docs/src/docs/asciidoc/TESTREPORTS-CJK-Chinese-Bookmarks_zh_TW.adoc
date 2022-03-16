@@ -1,0 +1,84 @@
+= JPdfBookmarks 2.5.4 中文 Bookmarks 測試報告
+life888888
+:revnumber: {project-version}
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+:doctype: article
+:encoding: utf-8
+:lang: zh
+:toc: left
+:numbered:
+:experimental:
+
+
+
+針對 jpdfbookmarks 2.5.2 vs 2.5.4 進行測試基準 PDF的測試結果整理列表於本文件。
+
+== 測試PDF清單
+
+可以從 https://github.com/life888888/jpdfbookmarks-test-pdf-examples/releases
+下載 jpdfbookmarks-test-pdf-examples-dist-1.0.0.tar.xz 或 jpdfbookmarks-test-pdf-examples-dist-1.0.0.zip
+
+在裡面的 generated-docs 目錄下，可以找到 這三個 測試的 PDF 檔案。
+
+* README-jp.pdf
+* README-zh_CN.pdf
+* README-zh_TW.pdf
+
+
+
+== JPdfBookmarks 2.5.4 測試結果
+
+使用 jpdfbookmarks 2.5.4 的 gui 模式開啟 PDF
+
+.generated-docs
+[caption='{table-caption} {counter:table-number}']
+[options="header"]
+[%header]
+|===
+|File Name|GUI Bookmarks是否正常顯示
+|README-jp.pdf   |顯示 CJK 字元
+|README-zh_CN.pdf|顯示 CJK 字元
+|README-zh_TW.pdf|顯示 CJK 字元
+|===
+
+
+
+.jpdfbookmarks 2.5.4 GUI 可以正常顯示包含有 中文字元,日文字元等 CJK 字元的 Bookmarks
+[caption='{table-caption} {counter:table-number}']
+[options="header",cols="1,8"]
+[%header]
+|===
+|File Name       |jpdfbookmarks 2.5.4
+|README-jp.pdf   |image:test_README-jp_2.5.4.png[]
+|README-zh_CN.pdf|image:test_README-zh_CN_2.5.4.png[]
+|README-zh_TW.pdf|image:test_README-zh_TW_2.5.4.png[]
+|===
+
+== JPdfBookmarks 2.5.2 測試結果
+
+使用 jpdfbookmarks 2.5.2 的 gui 模式開啟 PDF
+
+.generated-docs
+[caption='{table-caption} {counter:table-number}']
+[options="header"]
+[%header]
+|===
+|File Name|GUI Bookmarks是否正常顯示
+|README-jp.pdf   |無法顯示 CJK 字元
+|README-zh_CN.pdf|無法顯示 CJK 字元
+|README-zh_TW.pdf|無法顯示 CJK 字元
+|===
+
+.jpdfbookmarks 2.5.2 GUI 無法顯示包含有 中文字元,日文字元等 CJK 字元的 Bookmarks
+[caption='{table-caption} {counter:table-number}']
+[options="header",cols="1,8"]
+[%header]
+|===
+|File Name       |jpdfbookmarks 2.5.2
+|README-jp.pdf   |image:test_README-jp_2.5.2.png[]
+|README-zh_CN.pdf|image:test_README-zh_CN_2.5.2.png[]
+|README-zh_TW.pdf|image:test_README-zh_TW_2.5.2.png[]
+|===
+
+

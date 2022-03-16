@@ -23,9 +23,12 @@
 #
 
 JAR_NAME=jpdfbookmarks.jar
-JVM_OPTIONS="-Xms64m -Xmx512m"
 
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd)
+
+# ADD logging config file
+JVM_OPTIONS="-Xms64m -Xmx512m -Dorg.jpedal.jai=true -Djava.util.logging.config.file=$SCRIPT_DIR/conf/jpdfbookmarks.logging.properties"
+
 
 if [ -n "$JAVA_HOME" ]; then
   "$JAVA_HOME/bin/java" $JVM_OPTIONS -jar "$SCRIPT_DIR/$JAR_NAME" "$@"

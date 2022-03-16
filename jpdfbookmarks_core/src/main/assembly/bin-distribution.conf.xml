@@ -9,29 +9,41 @@
 	</formats>
 
 	<fileSets>
-		<!-- 把專案相關的說明檔案，打包進zip檔案的根目錄 -->
+		<!-- 把專案相關的說明檔案，打包進bin-distribution檔案的根目錄 -->
 		<fileSet>
 			<directory>${project.parent.basedir}</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
 				<include>COPYING</include>
-				<include>README</include>		
+				<include>README</include>
+				<include>README.adoc</include>
 			</includes>
 		</fileSet>
 
-		<!-- 把專案的指令碼檔案目錄(src/main/scripts)中的啟動指令碼檔案，打包進zip檔案的跟目錄 -->
+		<!-- 把專案的指令碼檔案目錄(src/main/scripts)中的啟動指令碼檔案，打包進bin-distribution檔案的跟目錄 -->
 		<fileSet>
 			<directory>${project.build.scriptSourceDirectory}</directory>
 			<outputDirectory></outputDirectory>
 			<includes>
 				<include>jpdfbookmarks</include>
 				<include>jpdfbookmarks_cli</include>
-				<include>link_this_in_linux_path.sh</include>		
-				<include>link_this_in_linux_path_cli.sh</include>	
+				<include>link_this_in_linux_path.sh</include>
+				<include>link_this_in_linux_path_cli.sh</include>
 			</includes>
 			<fileMode>0744</fileMode>
 		</fileSet>
-		<!-- 把 launch4j 產出的 exe 檔案，打包進zip檔案的根目錄 -->
+
+		<!-- 把專案的配置檔案，打包進bin-distribution檔案的conf目錄 -->
+		<fileSet>
+			<directory>${project.basedir}/src/main/resources/conf</directory>
+			<outputDirectory>conf</outputDirectory>
+ 			<includes>
+				<include>jpdfbookmarks.cjk.font.properties</include>
+				<include>jpdfbookmarks.logging.properties</include>
+			</includes>
+		</fileSet>
+
+		<!-- 把 launch4j 產出的 exe 檔案，打包進bin-distribution檔案的根目錄 -->
 		<fileSet>
 			<directory>${project.build.directory}</directory>
 			<outputDirectory></outputDirectory>
@@ -39,9 +51,20 @@
 				<include>jpdfbookmarks.exe</include>
 				<include>jpdfbookmarks_cli.exe</include>
 			</includes>
-		</fileSet>		
-   
-		<!-- 把專案自己編譯出來的jar檔案，打包進zip檔案的根目錄 -->
+		</fileSet>
+
+		<!-- Launch4j Runtime ini -->
+  		<fileSet>
+			<directory>${project.basedir}/src/main/launch4j</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>jpdfbookmarks.l4j.ini</include>
+			        <include>jpdfbookmarks_cli.l4j.ini</include>			
+			</includes>
+			<lineEnding>windows</lineEnding>
+		</fileSet>
+
+		<!-- 把專案自己編譯出來的jar檔案，打包進bin-distribution檔案的根目錄 -->
 		<fileSet>
 			<directory>${project.build.directory}</directory>
 			<outputDirectory></outputDirectory>
@@ -50,9 +73,7 @@
 			</includes>
 		</fileSet>
 
-
-
-		<!-- Splash Screen，打包進zip檔案的根目錄 -->
+		<!-- ICON image，打包進bin-distribution檔案的根目錄 -->
 		<fileSet>
 			<directory>${project.basedir}/src/main/images</directory>
 			<outputDirectory></outputDirectory>
@@ -60,12 +81,31 @@
 				<include>jpdfbookmarks.png</include>
 			</includes>
 		</fileSet>
+
+		<!-- 把專案的多國語言檔案，打包進bin-distribution檔案的locales目錄 -->
+		<fileSet>
+			<directory>${project.basedir}/src/main/locales</directory>
+			<outputDirectory>locales</outputDirectory>
+			<includes>
+				<include>*/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- 把專案相關的使用者指南文件，打包進bin-distribution檔案的根目錄 -->
+		<fileSet>
+			<directory>${project.parent.basedir}/jpdfbookmarks_docs/target/generated-docs</directory>
+			<outputDirectory>docs</outputDirectory>
+			<includes>
+				<include>*/**</include>
+			</includes>
+		</fileSet>		
 		
+				
 	</fileSets>
 	<!-- Adds dependencies to zip package under lib directory -->
 	<dependencySets>
-		<!-- 第三方jar不要解壓，打包進zip檔案的lib目錄 -->
-		<!-- 不使用專案的artifact(jpdfbookmarks.jar)-->
+		<!-- 第三方jar不要解壓，打包進bin-distribution檔案的lib目錄 -->
+		<!-- 不包含專案的artifact(jpdfbookmarks.jar)-->
 		<dependencySet>            
 			<outputDirectory>lib</outputDirectory>
 			<unpack>false</unpack>

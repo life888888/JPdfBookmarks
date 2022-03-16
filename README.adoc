@@ -1,4 +1,4 @@
-= JPdfBookmarks v2.5.2 Maven
+= JPdfBookmarks
 life888888
 :doctype: article
 :encoding: utf-8
@@ -7,7 +7,10 @@ life888888
 :numbered:
 :experimental:
 
-JPdfBookmarks v2.5.2-maven is mirgrate from jpdfbookmarks-src-2.5.2.tar.gz (https://sourceforge.net/projects/jpdfbookmarks/files/JPdfBookmarks-2.5.2/jpdfbookmarks-src-2.5.2.tar.gz/download)
+* JPdfBookmarks is mirgrate from jpdfbookmarks-src-2.5.2.tar.gz (https://sourceforge.net/projects/jpdfbookmarks/files/JPdfBookmarks-2.5.2/jpdfbookmarks-src-2.5.2.tar.gz/download)
+* 2.5.4 is based on 2.5.2-maven
+* fix JPdfBookmarks GUI mode open a pdf have bookmarks include CJK (Chinese , Japanese , Korean ) characters will show like tofu char (`□`)
+
 
 
 == Build System requirement
@@ -19,16 +22,16 @@ JPdfBookmarks v2.5.2-maven is mirgrate from jpdfbookmarks-src-2.5.2.tar.gz (http
 
 === Download Source
 
-* Download `Releases/v2.5.2-maven` (jpdfbookmarks-src-2.5.2-maven)
+* Download `Releases/v2.5.4` (jpdfbookmarks-2.5.4)
 
-* Unzip JPdfBookmarks-2.5.2-maven.tar.gz or JPdfBookmarks-2.5.2-maven.zip
+* Unzip JPdfBookmarks-2.5.4.tar.gz or JPdfBookmarks-2.5.4.zip
 
 === Do it once before the first execution 
 
 .Install jpedal_lgpl.jar to the local maven repository
 [source,bash]
 ----
-cd JPdfBookmarks-2.5.2-maven/jpdfbookmarks_lib
+cd JPdfBookmarks-2.5.4/jpdfbookmarks_lib
 ./install_lib.sh
 
 # Windows
@@ -40,7 +43,7 @@ install_lib.bat
 
 [source,bash]
 ----
-cd JPdfBookmarks-2.5.2-maven
+cd JPdfBookmarks-2.5.4
 mvn clean package
 
 cd jpdfbookmarks_core/target
@@ -49,12 +52,12 @@ cd jpdfbookmarks_core/target
 your can find:
 
 * Binary Release
-** jpdfbookmarks-2.5.2.tar.gz
-** jpdfbookmarks-2.5.2.zip
+** jpdfbookmarks-2.5.4.tar.gz
+** jpdfbookmarks-2.5.4.zip
 
 * Source Release
-** jpdfbookmarks-src-2.5.2.tar.gz
-** jpdfbookmarks-src-2.5.2.zip
+** jpdfbookmarks-src-2.5.4.tar.gz
+** jpdfbookmarks-src-2.5.4.zip
 
 == HOW TO INSTALL AND UNINSTALL
 
@@ -87,4 +90,36 @@ The retained code and properties files are guaranteed to be consistent with jpdf
 
 == Changes
 
+=== 2.5.2-maven
 The change content of the entire project converted from 2.5.2 to 2.5.2-maven version can refer to https://github.com/life888888/JPdfBookmarks-Maven-Patch
+
+=== 2.5.4
+
+=== Bug Fix 
+
+* JPdfBookmarks GUI mode open a pdf include jpen 2000 images will throw RuntimeException: JPeg 2000 Images needs the VM parameter ...
+
+* JPdfBookmarks GUI mode open a pdf have bookmarks include CJK (Chinese , Japanese , Korean ) characters will show like tofu char (`□`)
+** You can download this https://github.com/life888888/jpdfbookmarks-test-pdf-examples to rebuild test pdf.
+
+=== Improve
+
+* Add jpdfbookmarks_cli.l4j.ini , jpdfbookmarks.l4j.ini
+** User can change lauch4j JVM options by modify jpdfbookmarks_cli.l4j.ini , jpdfbookmarks.l4j.ini
+
+* Change lanuch4j exe prompt user jre download URL
+
+* Add conf/jpdfbookmarks.logging.properties
+** User can see log (jpdfbookmarks.0.log) under home folder
+** User can change jpdfbookmarks.logging.properties setting  like `it.flavianopetrocchi.jpdfbookmarks.level = SEVERE` or change `.level= ALL`
+
+* Add conf/jpdfbookmarks.cjk.font.properties
+** User can change JPdfBookmarks GUI mode , fonts size (like `cjk.fontSize = 16`)
+
+* Add locales/it/flavianopetrocchi/jpdfbookmarks/locales/localizedText_xx_YY.properties
+** User can copy localizedText.properties.template and rename to his language and country code.
+** User can do his own locales.
+
+* Add User Guide Document in docs
+** User can open JPdfBookmarks/docs/USERGUIDE_zh_TW.html to Read User Guide.
+** Developer can create docs (Asciidoc format) in JPdfBookmarks-2.5.4/jpdfbookmarks_docs/src/docs/asciidoc
