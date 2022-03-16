@@ -4,7 +4,7 @@
   <parent>
     <groupId>it.flavianopetrocchi.jpdfbookmarks</groupId>
     <artifactId>jpdfbookmarks</artifactId>
-    <version>2.5.2</version>
+    <version>2.5.4</version>
   </parent>
   <artifactId>iText-2.1.7-patched</artifactId>
   <packaging>jar</packaging>
@@ -34,6 +34,12 @@
       <groupId>org.jpedal</groupId>
       <artifactId>jpedal</artifactId>
     </dependency>
+    <!-- FIX org.apache.pdfbox.contentstream.PDFStreamEngine operatorException -->
+    <!-- FIX Cannot read JPEG2000 image: Java Advanced Imaging (JAI) Image I/O Tools are not installed -->
+    <dependency>
+      <groupId>com.github.jai-imageio</groupId>
+      <artifactId>jai-imageio-jpeg2000</artifactId>
+    </dependency>    
     <dependency>
       <groupId>org.dom4j</groupId>
       <artifactId>dom4j</artifactId>

@@ -4,7 +4,7 @@
   <parent>
     <groupId>it.flavianopetrocchi.jpdfbookmarks</groupId>
     <artifactId>jpdfbookmarks</artifactId>
-    <version>2.5.2</version>
+    <version>2.5.4</version>
   </parent>
   <artifactId>iTextBookmarksConverter</artifactId>
   <packaging>jar</packaging>
