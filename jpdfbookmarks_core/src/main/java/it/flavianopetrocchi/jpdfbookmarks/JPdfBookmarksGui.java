@@ -74,9 +74,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -132,6 +134,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -304,6 +307,41 @@ class JPdfBookmarksGui extends JFrame implements FileOperationListener,
     private Action extractLinks;
     private Action copyBookmarkFromViewAction;// </editor-fold>
 
+//FIX BUG GUI Bookmarks display CJK char being noto problem
+//ADD FOR Change GUI Mode font and font size
+private  static  void  initGlobalFont(){
+String cjkProperties = "jpdfbookmarks.cjk.font.properties";
+String fName = "Noto Serif CJK TC";
+int fSize = 20;
+Properties props = new Properties();
+//try ( InputStream input = JPdfBookmarksGui.class.getClassLoader().getResourceAsStream("conf/"+cjkProperties)) {
+try ( InputStream input = JPdfBookmarksGui.class.getClassLoader().getResourceAsStream(cjkProperties)) {
+  if (input != null) {
+    props.load(input);
+    fName = props.getProperty("cjk.fontName");
+        fSize = Integer.parseInt(props.getProperty("cjk.fontSize"));
+FontUIResource fontUIResource = new FontUIResource(new Font( fName ,Font.PLAIN, fSize ));   
+
+for (Enumeration keys = UIManager.getDefaults().keys(); keys.hasMoreElements(); ) {
+    Object key = keys.nextElement();          
+    Object value= UIManager.get(key);          
+    if  (value instanceof FontUIResource) {              
+          UIManager.put(key, fontUIResource);          
+          }
+    }
+  } else {
+//Do NOTHING if jpdfbookmarks.cjk.font.properties does not existing.
+Logger.getLogger(JPdfBookmarksGui.class.getName()).log(Level.WARNING,"Failed to load jpdfbookmarks.cjk.font.properties file ! You can ignore this warning message !");
+
+  }
+} catch (IOException ex) {
+//Do NOTHING if jpdfbookmarks.cjk.font.properties does not existing.
+Logger.getLogger(JPdfBookmarksGui.class.getName()).log(Level.WARNING,"Failed to load jpdfbookmarks.cjk.font.properties file ! You can ignore this warning message !", ex);
+
+}
+
+}
+
     private void saveWindowState() {
         userPrefs.setWindowState(windowState);
         if (windowState == JFrame.MAXIMIZED_BOTH) {
@@ -339,6 +377,9 @@ class JPdfBookmarksGui extends JFrame implements FileOperationListener,
      * JPdfBookmarksGui; viewer.initGui();
      */
     public void initGui() {
+        //FIX BUG - GUI Bookmarks display CJK char being noto problem
+        initGlobalFont();
+
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         Authenticator.setDefault(new ProxyAuthenticator(this, true));
         localClipboard.addFlavorListener((FlavorEvent e) -> {

@@ -4,13 +4,20 @@
   <parent>
     <groupId>it.flavianopetrocchi.jpdfbookmarks</groupId>
     <artifactId>jpdfbookmarks</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>jpdfbookmarks_core</artifactId>
   <packaging>jar</packaging>
   <name>jpdfbookmarks_core</name>
   <build>
     <finalName>jpdfbookmarks</finalName>
+    <!-- jpdfbookmarks.properties - Auto change VERSION=${pom.version} -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -24,9 +31,13 @@
             </manifest>
             <manifestEntries>
               <version>${project.version}</version>
+              <Class-Path>. locales/ conf/</Class-Path>
               <SplashScreen-Image>it/flavianopetrocchi/jpdfbookmarks/splash.png</SplashScreen-Image>
             </manifestEntries>
           </archive>
+          <excludes>
+            <exclude>conf/**</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <!-- launch4j must run before assembly -->
@@ -60,12 +71,7 @@
                 <minVersion>1.9.0</minVersion>
                 <maxVersion/>
                 <jdkPreference>preferJre</jdkPreference>
-                <initialHeapSize>64</initialHeapSize>
-                <maxHeapSize>512</maxHeapSize>
                 <runtimeBits>64/32</runtimeBits>
-                <opts>
-                  <opt>-splash:</opt>
-                </opts>
               </jre>
             </configuration>
           </execution>
@@ -94,8 +100,6 @@
                 <minVersion>1.9.0</minVersion>
                 <maxVersion/>
                 <jdkPreference>preferJre</jdkPreference>
-                <initialHeapSize>64</initialHeapSize>
-                <maxHeapSize>512</maxHeapSize>
                 <runtimeBits>64/32</runtimeBits>
               </jre>
             </configuration>

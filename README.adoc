@@ -1,4 +1,4 @@
-= JPdfBookmarks v3.0.0 Maven
+= JPdfBookmarks
 life888888
 :doctype: article
 :encoding: utf-8
@@ -7,9 +7,13 @@ life888888
 :numbered:
 :experimental:
 
-JPdfBookmarks v3.0.0 Maven is mirgrate from jpdfbookmarks-code-r213-branches-pdfbox.tar.gz (https://sourceforge.net/projects/jpdfbookmarks/)
+
+* JPdfBookmarks v3.0.0 Maven is mirgrate from jpdfbookmarks-code-r213-branches-pdfbox.tar.gz (https://sourceforge.net/projects/jpdfbookmarks/)
 
 jpdfbookmarks code-r213 branches pdfbox
+
+* 3.0.2 is based on 3.0.0-maven (3.0.1)
+* fix JPdfBookmarks GUI mode open a pdf have bookmarks include CJK (Chinese , Japanese , Korean ) characters will show like tofu char (`□`)
 
 == Build System requirement
 
@@ -20,15 +24,15 @@ jpdfbookmarks code-r213 branches pdfbox
 
 === Download Source
 
-* Download `Releases/v3.0.0-maven` (jpdfbookmarks-3.0.0-maven)
+* Download `Releases/v3.0.2` (jpdfbookmarks-3.0.2)
 
-* Unzip JPdfBookmarks-3.0.0-maven.tar.gz or JPdfBookmarks-3.0.0-maven.zip
+* Unzip JPdfBookmarks-3.0.2.tar.gz or JPdfBookmarks-3.0.2.zip
 
 === Build and Package
 
 [source,bash]
 ----
-cd JPdfBookmarks-3.0.0-maven
+cd JPdfBookmarks-3.0.2
 mvn clean package
 
 cd jpdfbookmarks_core/target
@@ -37,20 +41,24 @@ cd jpdfbookmarks_core/target
 your can find:
 
 * Binary Release
-** jpdfbookmarks-3.0.0.tar.gz
-** jpdfbookmarks-0.0.0.zip
+** jpdfbookmarks-3.0.2.tar.gz
+** jpdfbookmarks-3.0.2.zip
 
 * Source Release
-** jpdfbookmarks-src-3.0.0.tar.gz
-** jpdfbookmarks-src-0.0.0.zip
+** jpdfbookmarks-src-3.0.2.tar.gz
+** jpdfbookmarks-src-3.0.2.zip
 
 == HOW TO INSTALL AND UNINSTALL
 
 Same as README Section `HOW TO INSTALL AND UNINSTALL`
 
+More Details Please Read jpdfbookmarks-3.0.2-SNAPSHOT.tar.gz/docs/USERGUIDE_zh_TW.html
+
 == HOW TO EXECUTE
 
 Same as README Section `HOW TO EXECUTE`
+
+More Details Please Read jpdfbookmarks-3.0.2-SNAPSHOT.tar.gz/docs/USERGUIDE_zh_TW.html
 
 == Why Change to Maven Build Tools?
 
@@ -61,13 +69,38 @@ Same as README Section `HOW TO EXECUTE`
 ** No need to install launch4j anymore 
 ** No need to install launch4j 7zip
 ** Windows and Linux developers use the same configuration files to build and package projects.
-* It is no longer necessary to include the following jar files in the `jpdfbookmarks_lib/` directory
+* It is no longer necessary to include the following jar files in the `jpdfbookmarks_lib/` directory (All files can be downloaded from the maven central repository on the web )
 * Developers can use different IDE tools (NetBeans , Eclipse , IntelliJ IDEA) to open or import this Maven project.
-
-== Guaranteed
-
-The retained code and properties files are guaranteed to be consistent with jpdfbookmarks-code-r213-branches-pdfbox.tar.gz and have not been modified.
 
 == Changes
 
-The change content of the entire project converted from 3.0.0(branches pdfbox) to 3.0.0-maven version can refer to https://github.com/life888888/JPdfBookmarks-Maven-Patch
+=== 3.0.2
+
+=== Bug Fix 
+
+* JPdfBookmarks GUI mode open a pdf include jpen 2000 images will throw RuntimeException: JPeg 2000 Images needs the VM parameter ...
+
+* JPdfBookmarks GUI mode open a pdf have bookmarks include CJK (Chinese , Japanese , Korean ) characters will show like tofu char (`□`)
+** You can download this https://github.com/life888888/jpdfbookmarks-test-pdf-examples to rebuild test pdf.
+
+=== Improve
+
+* Add jpdfbookmarks_cli.l4j.ini , jpdfbookmarks.l4j.ini
+** User can change lauch4j JVM options by modify jpdfbookmarks_cli.l4j.ini , jpdfbookmarks.l4j.ini
+
+* Change lanuch4j exe prompt user jre download URL
+
+* Add conf/jpdfbookmarks.logging.properties
+** User can see log (jpdfbookmarks.0.log) under home folder
+** User can change jpdfbookmarks.logging.properties setting  like `it.flavianopetrocchi.jpdfbookmarks.level = SEVERE` or change `.level= ALL`
+
+* Add conf/jpdfbookmarks.cjk.font.properties
+** User can change JPdfBookmarks GUI mode , fonts size (like `cjk.fontSize = 16`)
+
+* Add locales/it/flavianopetrocchi/jpdfbookmarks/locales/localizedText_xx_YY.properties
+** User can copy localizedText.properties.template and rename to his language and country code.
+** User can do his own locales.
+
+* Add User Guide Document in docs
+** User can open JPdfBookmarks/docs/USERGUIDE_zh_TW.html to Read User Guide.
+** Developer can create docs (Asciidoc format) in JPdfBookmarks-3.0.2/jpdfbookmarks_docs/src/docs/asciidoc
