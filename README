@@ -16,6 +16,7 @@ by this project.
 
 Sections:
 - DESCRIPTION
+- NOTES FOR THIS BRANCH
 - DEPENDENCIES
 - HOW TO INSTALL AND UNINSTALL
 - HOW TO EXECUTE
@@ -30,10 +31,19 @@ Sections:
 This software allows you to create and edit bookmarks on existing pdf files.
 
 *******************************************************************************
+        NOTES FOR THIS BRANCH
+*******************************************************************************
+
+This branch provides a version which builds with the current (as of
+July 1, 2020) version of NetBeans, NetBeans 12.0.  It also provides
+macOS support, using the macOS menu bar and the macOS CMD key (Java
+meta key) for crucial keyboard accelerators.
+
+*******************************************************************************
 	DEPENDENCIES
 *******************************************************************************
 
-This software requires a Java Runtime Environment version 6 or later for 
+This software requires a Java Runtime Environment version 9 or later for 
 information on how to install one on your system, or to check if you already
 have it, go to http://www.java.com or search your system's software
 repositories. It uses the following libraries distributed in the lib folder 
