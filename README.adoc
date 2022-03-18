@@ -1,4 +1,4 @@
-= JPdfBookmarks
+= JPdfBookmarks v3.0.0 Maven
 life888888
 :doctype: article
 :encoding: utf-8
@@ -7,43 +7,28 @@ life888888
 :numbered:
 :experimental:
 
-* JPdfBookmarks is mirgrate from jpdfbookmarks-src-2.5.2.tar.gz (https://sourceforge.net/projects/jpdfbookmarks/files/JPdfBookmarks-2.5.2/jpdfbookmarks-src-2.5.2.tar.gz/download)
-* 2.5.4 is based on 2.5.2-maven
-* fix JPdfBookmarks GUI mode open a pdf have bookmarks include CJK (Chinese , Japanese , Korean ) characters will show like tofu char (`□`)
+JPdfBookmarks v3.0.0 Maven is mirgrate from jpdfbookmarks-code-r213-branches-pdfbox.tar.gz (https://sourceforge.net/projects/jpdfbookmarks/)
 
-
+jpdfbookmarks code-r213 branches pdfbox
 
 == Build System requirement
 
-* JDK 8.x (Only JDK 8)
+* JDK 9.x (JDK 9+)
 * Maven 3.6.x+
 
 == How to build and package ?
 
 === Download Source
 
-* Download `Releases/v2.5.4` (jpdfbookmarks-2.5.4)
+* Download `Releases/v3.0.0-maven` (jpdfbookmarks-3.0.0-maven)
 
-* Unzip JPdfBookmarks-2.5.4.tar.gz or JPdfBookmarks-2.5.4.zip
-
-=== Do it once before the first execution 
-
-.Install jpedal_lgpl.jar to the local maven repository
-[source,bash]
-----
-cd JPdfBookmarks-2.5.4/jpdfbookmarks_lib
-./install_lib.sh
-
-# Windows
-install_lib.bat
-----
-
+* Unzip JPdfBookmarks-3.0.0-maven.tar.gz or JPdfBookmarks-3.0.0-maven.zip
 
 === Build and Package
 
 [source,bash]
 ----
-cd JPdfBookmarks-2.5.4
+cd JPdfBookmarks-3.0.0-maven
 mvn clean package
 
 cd jpdfbookmarks_core/target
@@ -52,12 +37,12 @@ cd jpdfbookmarks_core/target
 your can find:
 
 * Binary Release
-** jpdfbookmarks-2.5.4.tar.gz
-** jpdfbookmarks-2.5.4.zip
+** jpdfbookmarks-3.0.0.tar.gz
+** jpdfbookmarks-0.0.0.zip
 
 * Source Release
-** jpdfbookmarks-src-2.5.4.tar.gz
-** jpdfbookmarks-src-2.5.4.zip
+** jpdfbookmarks-src-3.0.0.tar.gz
+** jpdfbookmarks-src-0.0.0.zip
 
 == HOW TO INSTALL AND UNINSTALL
 
@@ -76,50 +61,13 @@ Same as README Section `HOW TO EXECUTE`
 ** No need to install launch4j anymore 
 ** No need to install launch4j 7zip
 ** Windows and Linux developers use the same configuration files to build and package projects.
-* It is no longer necessary to include the following jar files in the `jpdfbookmarks_lib/` directory (These files can be downloaded from the maven central repository on the web )
-** bcmail-jdk16-145.jar 
-** bcprov-jdk16-145.jar
-** bctsp-jdk16-145.jar
-** commons-cli-1.2.jar
-** swing-layout-1.0.3.jar
+* It is no longer necessary to include the following jar files in the `jpdfbookmarks_lib/` directory
 * Developers can use different IDE tools (NetBeans , Eclipse , IntelliJ IDEA) to open or import this Maven project.
 
 == Guaranteed
 
-The retained code and properties files are guaranteed to be consistent with jpdfbookmarks-src-2.5.2.tar.gz and have not been modified.
+The retained code and properties files are guaranteed to be consistent with jpdfbookmarks-code-r213-branches-pdfbox.tar.gz and have not been modified.
 
 == Changes
 
-=== 2.5.2-maven
-The change content of the entire project converted from 2.5.2 to 2.5.2-maven version can refer to https://github.com/life888888/JPdfBookmarks-Maven-Patch
-
-=== 2.5.4
-
-=== Bug Fix 
-
-* JPdfBookmarks GUI mode open a pdf include jpen 2000 images will throw RuntimeException: JPeg 2000 Images needs the VM parameter ...
-
-* JPdfBookmarks GUI mode open a pdf have bookmarks include CJK (Chinese , Japanese , Korean ) characters will show like tofu char (`□`)
-** You can download this https://github.com/life888888/jpdfbookmarks-test-pdf-examples to rebuild test pdf.
-
-=== Improve
-
-* Add jpdfbookmarks_cli.l4j.ini , jpdfbookmarks.l4j.ini
-** User can change lauch4j JVM options by modify jpdfbookmarks_cli.l4j.ini , jpdfbookmarks.l4j.ini
-
-* Change lanuch4j exe prompt user jre download URL
-
-* Add conf/jpdfbookmarks.logging.properties
-** User can see log (jpdfbookmarks.0.log) under home folder
-** User can change jpdfbookmarks.logging.properties setting  like `it.flavianopetrocchi.jpdfbookmarks.level = SEVERE` or change `.level= ALL`
-
-* Add conf/jpdfbookmarks.cjk.font.properties
-** User can change JPdfBookmarks GUI mode , fonts size (like `cjk.fontSize = 16`)
-
-* Add locales/it/flavianopetrocchi/jpdfbookmarks/locales/localizedText_xx_YY.properties
-** User can copy localizedText.properties.template and rename to his language and country code.
-** User can do his own locales.
-
-* Add User Guide Document in docs
-** User can open JPdfBookmarks/docs/USERGUIDE_zh_TW.html to Read User Guide.
-** Developer can create docs (Asciidoc format) in JPdfBookmarks-2.5.4/jpdfbookmarks_docs/src/docs/asciidoc
+The change content of the entire project converted from 3.0.0(branches pdfbox) to 3.0.0-maven version can refer to https://github.com/life888888/JPdfBookmarks-Maven-Patch
