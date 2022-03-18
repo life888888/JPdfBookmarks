@@ -38,6 +38,7 @@ import static java.awt.desktop.QuitStrategy.CLOSE_ALL_WINDOWS;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -365,11 +366,13 @@ class JPdfBookmarks {
 
     private void fatalOpenFileError(String filePath) {
         err.println(Res.getString("ERROR_OPENING_FILE") + " " + filePath);
+Logger.getLogger(JPdfBookmarks.class.getName()).log(Level.SEVERE,Res.getString("ERROR_OPENING_FILE") + " " + filePath);
         System.exit(1);
     }
 
     private void fatalSaveFileError(String filePath) {
         err.println(Res.getString("ERROR_SAVING_FILE") + " (" + filePath + ")");
+Logger.getLogger(JPdfBookmarks.class.getName()).log(Level.SEVERE,Res.getString("ERROR_SAVING_FILE") + " (" + filePath + ")");        
         System.exit(1);
     }
 
@@ -523,6 +526,7 @@ class JPdfBookmarks {
         if (DEBUG) {
             System.err.println("***** printErrorForDebug Start *****");
             System.err.println(e.getMessage());
+            Logger.getLogger(JPdfBookmarks.class.getName()).log(Level.FINE,e.getMessage());
             System.err.println("***** printErrorForDebug End *****");
         }
     }
@@ -631,6 +635,7 @@ class JPdfBookmarks {
         } catch (ParseException ex) {
             mode = Mode.GUI;
             err.println(ex.getLocalizedMessage());
+            Logger.getLogger(JPdfBookmarks.class.getName()).log(Level.SEVERE,ex.getLocalizedMessage());          
             System.exit(1);
         }
 
