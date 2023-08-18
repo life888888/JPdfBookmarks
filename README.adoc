@@ -49,7 +49,7 @@ your can find:
 ** jpdfbookmarks-src-3.0.2.zip
 
 
-If You wan to build native installer (windows msi, Linux deb, rpm), please goto https://github.com/life888888/JPdfBookmarks_INSTALLER_BUILD
+If You want to build native installer (windows msi, Linux deb, rpm), please goto https://github.com/life888888/JPdfBookmarks_INSTALLER_BUILD
 
 Use JPdfBookmarks_INSTALLER_BUILD to package this project to native installer.
 
