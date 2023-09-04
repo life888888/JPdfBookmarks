@@ -83,7 +83,7 @@ More Details Please Read jpdfbookmarks-3.0.2-SNAPSHOT.tar.gz/docs/USERGUIDE_zh_T
 
 === Bug Fix 
 
-* JPdfBookmarks GUI mode open a pdf include jpen 2000 images will throw RuntimeException: JPeg 2000 Images needs the VM parameter ...
+* JPdfBookmarks GUI mode open a pdf include jpeg 2000 images will throw RuntimeException: JPeg 2000 Images needs the VM parameter ...
 
 * JPdfBookmarks GUI mode open a pdf have bookmarks include CJK (Chinese , Japanese , Korean ) characters will show like tofu char (`□`)
 ** You can download this https://github.com/life888888/jpdfbookmarks-test-pdf-examples to rebuild test pdf.
